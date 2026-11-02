@@ -18,4 +18,9 @@ final class HomePageController extends AbstractController
             'current_date' => $CurentDate->format('d/m/Y'),
         ]);
     }
+    #[Route('/cv', name: 'app_cv')]
+    public function CV(): Response
+    {
+        return $this->render('home_page/CV.html.twig');
+    }
 }
