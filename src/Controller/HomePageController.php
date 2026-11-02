@@ -23,4 +23,9 @@ final class HomePageController extends AbstractController
     {
         return $this->render('home_page/CV.html.twig');
     }
+    #[Route('/Cyberquiz', name: 'app_cyberquiz')]
+    public function Cyberquiz(): Response
+    {
+        return $this->render('home_page/Cyberquiz.html.twig');
+    }
 }

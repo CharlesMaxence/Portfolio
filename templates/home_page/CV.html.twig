@@ -1,6 +1,17 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    <h1>Mon Curriculum Vitae</h1>
-    <p>Bienvenue sur ma page de CV !</p>
+    <div class="container my-4 text-center">
+        <h1>Mon Curriculum Vitae</h1>
+
+        <!-- Bouton de téléchargement -->
+        <a href="{{ asset('image/cv.pdf') }}" class="btn btn-primary mb-3" download>
+            Télécharger mon CV (PDF)
+        </a>
+
+        <!-- Affichage propre du PDF -->
+        <div class="ratio ratio-16x9" style="height: 75vh;">
+            <iframe src="{{ asset('image/cv.pdf') }}" width="100%" height="100%" style="border: none;"></iframe>
+        </div>
+    </div>
 {% endblock %}
