@@ -28,4 +28,9 @@ final class HomePageController extends AbstractController
     {
         return $this->render('home_page/Cyberquiz.html.twig');
     }
+    #[Route('/FirstDigitalSteps', name: 'app_cyberquiz')]
+    public function FirstDigitalSteps(): Response
+    {
+        return $this->render('home_page/FirstDigitalSteps.html.twig');
+    }
 }
