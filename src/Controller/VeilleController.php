@@ -18,25 +18,49 @@ class VeilleController extends AbstractController
     #[Route('/vt', name: 'app_veille')]
     public function index(): Response
     {
-        $rssUrl = 'https://www.silicon.fr/feed';
+        // Utilisation d'un flux RSS ultra-stable et orienté dev / IT
+        $rssUrl = 'https://www.developpez.com/index/rss';
         
         $articles = [];
 
         try {
-            $response = $this->client->request('GET', $rssUrl);
+            // On simule un navigateur avec un User-Agent pour éviter d'être bloqué
+            $response = $this->client->request('GET', $rssUrl, [
+                'headers' => [
+                    'User-Agent' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) Portfolio-BTS-SIO'
+                ]
+            ]);
+            
             $xmlContent = $response->getContent();
             
+            // Désactivation temporaire des erreurs XML strictes si le flux contient des caractères spéciaux
+            libxml_use_internal_errors(true);
             $xml = new \SimpleXMLElement($xmlContent);
 
-            foreach ($xml->channel->item as $item) {
-                $articles[] = [
-                    'title' => (string) $item->title,
-                    'link' => (string) $item->link,
-                    'description' => (string) $item->description,
-                    'date' => (string) $item->pubDate,
-                ];
+            // Vérification si le flux utilise la structure standard channel->item
+            if (isset($xml->channel->item)) {
+                foreach ($xml->channel->item as $item) {
+                    $articles[] = [
+                        'title' => (string) $item->title,
+                        'link' => (string) $item->link,
+                        'description' => (string) $item->description,
+                        'date' => (string) $item->pubDate,
+                    ];
+                }
+            } 
+            // Support alternatif si le flux utilise le format Atom (<entry>)
+            elseif (isset($xml->entry)) {
+                foreach ($xml->entry as $entry) {
+                    $articles[] = [
+                        'title' => (string) $entry->title,
+                        'link' => (string) $entry->link['href'],
+                        'description' => (string) $entry->summary,
+                        'date' => (string) $entry->updated,
+                    ];
+                }
             }
         } catch (\Exception $e) {
+            // En cas d'erreur, le tableau reste vide mais ne fait pas crasher la page
             $articles = [];
         }
 

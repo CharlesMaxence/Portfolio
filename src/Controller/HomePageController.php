@@ -23,12 +23,12 @@ final class HomePageController extends AbstractController
     {
         return $this->render('home_page/CV.html.twig');
     }
-    #[Route('/Cyberquiz', name: 'app_cyberquiz')]
-    public function Cyberquiz(): Response
+    #[Route('/cyberquiz', name: 'app_cyberquiz')]
+    public function cyberquiz(): Response
     {
-        return $this->render('home_page/Cyberquiz.html.twig');
+        return $this->render('home_page/cyberquiz.html.twig');
     }
-    #[Route('/FirstDigitalSteps', name: 'app_cyberquiz')]
+    #[Route('/FirstDigitalSteps', name: 'app_fds')]
     public function FirstDigitalSteps(): Response
     {
         return $this->render('home_page/FirstDigitalSteps.html.twig');
