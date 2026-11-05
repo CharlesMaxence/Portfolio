@@ -40,11 +40,20 @@ class VeilleController extends AbstractController
             // Vérification si le flux utilise la structure standard channel->item
             if (isset($xml->channel->item)) {
                 foreach ($xml->channel->item as $item) {
+                    $image = null;
+                    foreach ($item->enclosure as $enclosure) {
+                        if (str_starts_with((string) $enclosure['type'], 'image/')) {
+                            $image = (string) $enclosure['url'];
+                            break;
+                        }
+                    }
+
                     $articles[] = [
                         'title' => (string) $item->title,
                         'link' => (string) $item->link,
                         'description' => (string) $item->description,
                         'date' => (string) $item->pubDate,
+                        'image' => $image,
                     ];
                 }
             } 
