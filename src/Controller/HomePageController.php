@@ -33,4 +33,9 @@ final class HomePageController extends AbstractController
     {
         return $this->render('home_page/FirstDigitalSteps.html.twig');
     }
+    #[Route('/pp', name: 'app_pp')]
+    public function PP(): Response
+    {
+        return $this->render('home_page/pp.html.twig');
+    }
 }
