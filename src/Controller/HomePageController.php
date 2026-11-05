@@ -38,4 +38,10 @@ final class HomePageController extends AbstractController
     {
         return $this->render('home_page/pp.html.twig');
     }
+    #[Route('/contact', name: 'app_contact')]
+    public function contact(): Response
+    {
+        return $this->render('home_page/contact.html.twig');
+    }
+    
 }
