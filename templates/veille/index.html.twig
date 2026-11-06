@@ -6,7 +6,7 @@
 <div class="container py-5">
     <div class="text-center mb-5">
         <h1 class="fw-bold text-indigo">Veille Technologique</h1>
-        <p class="text-secondary fs-5">Actualités et innovations du développement web et de l'IA de la part de <a href="https://www.developpez.com">developpez.com</a></p>
+        <p class="text-secondary fs-5">Actualités et innovations du développement web et de l'IA de la part de <a href="https://www.smashingmagazine.com">Smashing Magazine</a></p>
     </div>
 
     <div class="row g-4">
@@ -16,7 +16,7 @@
             <div class="p-4 h-100 bento-card shadow-sm d-flex flex-column justify-content-between">
                 <div>
                     <img
-                        src="{{ placeholderImage }}"
+                        src="{{ article.image ?: placeholderImage }}"
                         alt="Illustration : {{ article.title }}"
                         class="w-100 rounded-3 mb-3"
                         style="aspect-ratio: 16 / 9; object-fit: cover;"

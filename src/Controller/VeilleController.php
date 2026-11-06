@@ -18,8 +18,7 @@ class VeilleController extends AbstractController
     #[Route('/vt', name: 'app_veille')]
     public function index(): Response
     {
-        // Utilisation d'un flux RSS ultra-stable et orienté dev / IT
-        $rssUrl = 'https://www.developpez.com/index/rss';
+        $rssUrl = 'https://www.smashingmagazine.com/feed/';
         
         $articles = [];
 
@@ -44,6 +43,9 @@ class VeilleController extends AbstractController
                     foreach ($item->enclosure as $enclosure) {
                         if (str_starts_with((string) $enclosure['type'], 'image/')) {
                             $image = (string) $enclosure['url'];
+                            if (str_starts_with($image, 'http://')) {
+                                $image = 'https://' . substr($image, 7);
+                            }
                             break;
                         }
                     }
